@@ -1,0 +1,16 @@
+@import "custom";
+
+// padding
+.pad-1 {
+    padding: $space-8;
+}
+.pad-2 {
+    padding: $space-12;
+} 
+.pad-3 {
+    padding: $space-24;
+}
+
+.border {
+    border: 1px solid $border-color;
+}
