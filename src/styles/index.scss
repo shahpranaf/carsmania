@@ -1,0 +1,17 @@
+@import "./variables";
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    font-family: $roboto !important;
+}
+
+@import "./header";
+@import "./404";
+@import "./filter";
+
+
+.wrapper {
+    width: $wrapper-width;
+    display: flex;
+    margin: 0 auto;
+}

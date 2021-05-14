@@ -4,8 +4,8 @@ import logo from '../static/logo.png'
 
 function Header() {
     return (
-        <Navbar>
-            <Navbar.Brand  className="col-4 col-lg-2" href="#home"><Image className="logo" src={logo} /></Navbar.Brand>
+        <Navbar className="pad-3">
+            <Navbar.Brand  className="col-4 col-lg-2" href="/"><Image className="logo" src={logo} /></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">

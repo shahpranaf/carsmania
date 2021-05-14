@@ -8,16 +8,18 @@ const initialState = {
 };
 
 type Props = {
-	filteredManufact: string | undefined;
-    filteredColor: string | undefined;
-    handleFilter: FormEventHandler<HTMLFormElement>
+    selectedFilter: {
+        filteredManufact: string;
+        filteredColor: string;
+    }	
+    handleFilter: Function
 };
 
 function Filter(props: Props) {
-	const { filteredColor, filteredManufact, handleFilter} = props;
+	const { selectedFilter, handleFilter} = props;
 	const [filter, setFilter] = useState(initialState);
-	const [color, setColor] = useState(filteredColor);
-	const [manufacturer, setManufacturer] = useState(filteredManufact);
+	const [color, setColor] = useState(selectedFilter.filteredColor);
+	const [manufacturer, setManufacturer] = useState(selectedFilter.filteredManufact);
 
 	// const [colors, setColors] = useState([]);
 	// const [manufacturers, setManufacturers] = useState([]);
@@ -69,7 +71,7 @@ function Filter(props: Props) {
 
 	return (
 		<div className="filter-container">
-			<Form onSubmit={handleFilter}>
+			<Form onSubmit={(e) => handleFilter(e, color, manufacturer)}>
 				<Form.Group controlId="color">
 					<Form.Label>Color</Form.Label>
                     <Form.Control as="select" name="color" 
@@ -102,8 +104,11 @@ function Filter(props: Props) {
 					</Form.Control>
 				</Form.Group>
 
-				<Button type="submit" className="ms-auto">
+				<Button type="submit" disabled={!color && !manufacturer} className="ms-auto">
 					Filter
+				</Button>
+                <Button onClick={(e) => handleFilter(e, "", "")} type="btn btn-danger" disabled={!color && !manufacturer} className="ms-2">
+					Reset
 				</Button>
 			</Form>
 		</div>
