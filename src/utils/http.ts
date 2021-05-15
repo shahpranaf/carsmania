@@ -5,5 +5,4 @@ const http = axios.create({
 })
 
 export const httpAll = axios.all;
-export const httpSpread = axios.spread;
 export default http

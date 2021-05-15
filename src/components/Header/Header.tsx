@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav, Navbar, NavDropdown, Image } from 'react-bootstrap'
-import logo from '../static/logo.png'
+import logo from '../../static/logo.png'
+import './header.scss';
 
 function Header() {
     return (

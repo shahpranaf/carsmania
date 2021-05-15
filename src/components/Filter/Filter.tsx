@@ -1,6 +1,7 @@
 import React, { FormEventHandler, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import http, { httpAll } from "../utils/http";
+import http, { httpAll } from "../../utils/http";
+import './filter.scss';
 
 const initialState = {
 	colors: [],
@@ -17,38 +18,25 @@ type Props = {
 
 function Filter(props: Props) {
 	const { selectedFilter, handleFilter} = props;
-	const [filter, setFilter] = useState(initialState);
-	const [color, setColor] = useState(selectedFilter.filteredColor);
-	const [manufacturer, setManufacturer] = useState(selectedFilter.filteredManufact);
+	console.log("---",selectedFilter)
+	const [filterData, setFilterData] = useState(initialState);
+	const [filter, setFilter] = useState({
+		color: "",
+		manufacturer: ""
+	});
 
-	// const [colors, setColors] = useState([]);
-	// const [manufacturers, setManufacturers] = useState([]);
-
-	// useEffect(() => {
-	//     http.get('/colors')
-	//     .then(res => res.data)
-	//     .then(res => {
-	//         console.log(res)
-	//         setColors(res.colors)
-	//     })
-	//     .catch(err => console.log(err))
-	// }, [])
-
-	// useEffect(() => {
-	//     http.get('/manufacturers')
-	//     .then(res => res.data)
-	//     .then(res => {
-	//         console.log(res)
-	//         setManufacturers(res.manufacturers)
-	//     })
-	//     .catch(err => console.log(err))
-	// }, [])
+	useEffect(() => {
+		setFilter({
+			color: selectedFilter.filteredColor,
+			manufacturer: selectedFilter.filteredManufact
+		})
+	}, [selectedFilter]);
 
 	useEffect(() => {
 		httpAll([http.get("/colors"), http.get("/manufacturers")])
 			.then((res) => {
 				console.log(res);
-				setFilter({
+				setFilterData({
 					colors: res[0].data.colors,
 					manufacturers: res[1].data.manufacturers,
 				});
@@ -57,31 +45,25 @@ function Filter(props: Props) {
 	}, []);
 
 	const handleChange = (e:any) => {
-        switch(e.target.name) {
-            case 'color': {
-                setColor(e.target.value);
-                break;
-            }
-            case 'manufacturer': {
-                setManufacturer(e.target.value);
-                break;
-            }
-        }
+		setFilter({
+			...filter,
+			[e.target.name]: [e.target.value]
+		})
     };
 
 	return (
 		<div className="filter-container">
-			<Form onSubmit={(e) => handleFilter(e, color, manufacturer)}>
+			<Form onSubmit={(e) => handleFilter(e, filter.color, filter.manufacturer)}>
 				<Form.Group controlId="color">
 					<Form.Label>Color</Form.Label>
                     <Form.Control as="select" name="color" 
                         onChange={handleChange}
-                        value={color}  
+                        value={filter.color}  
                         size="lg" 
                         custom
                     >
                         <option value="" key={-1}>Select</option>
-						{filter.colors.map((color, i) => (
+						{filterData.colors.map((color, i) => (
 							<option value={color} key={i}>
 								{color}
 							</option>
@@ -93,21 +75,21 @@ function Filter(props: Props) {
 					<Form.Label>Manufacturer</Form.Label>
                     <Form.Control as="select" name="manufacturer" 
                         onChange={handleChange}
-                        value={manufacturer} 
+                        value={filter.manufacturer} 
                         size="lg" 
                         custom
                     >
                         <option value="" key={-1}>Select</option>
-						{filter.manufacturers.map((mf, i) => (
+						{filterData.manufacturers.map((mf, i) => (
 							<option value={mf["name"]}  key={i}>{mf["name"]}</option>
 						))}
 					</Form.Control>
 				</Form.Group>
 
-				<Button type="submit" disabled={!color && !manufacturer} className="ms-auto">
+				<Button type="submit" disabled={!filter.color && !filter.manufacturer} className="ms-auto">
 					Filter
 				</Button>
-                <Button onClick={(e) => handleFilter(e, "", "")} type="btn btn-danger" disabled={!color && !manufacturer} className="ms-2">
+                <Button onClick={(e) => handleFilter(e, "", "")} type="btn btn-danger" disabled={!filter.color && !filter.manufacturer} className="ms-2">
 					Reset
 				</Button>
 			</Form>
@@ -115,4 +97,4 @@ function Filter(props: Props) {
 	);
 }
 
-export default Filter;
+export default React.memo(Filter);

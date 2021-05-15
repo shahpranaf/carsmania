@@ -5,10 +5,7 @@ body {
     font-family: $roboto !important;
 }
 
-@import "./header";
 @import "./404";
-@import "./filter";
-
 
 .wrapper {
     width: $wrapper-width;

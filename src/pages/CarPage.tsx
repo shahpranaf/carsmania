@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Col, Container, Image, Row } from 'react-bootstrap'
-import { RouteComponentProps } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import http from '../utils/http';
 import { CarType } from '../types/Car';
 
 import FavouriteButton from '../components/FavouriteButton';
 
-interface Params {
-    stockNumber: string;
-}
-
-
-function Car({match} : RouteComponentProps<Params>) {
+function Car() {
+    const history = useHistory();
+    const params = useParams();
     const [carDetail, setCarDetail] = useState<CarType>({});
-    const [stockNumber, setStockNumber] = useState(Number(match.params['stockNumber']));
+    console.log(Number(params['stockNumber']) || '0')
+    const stockNumber = Number(params['stockNumber']);
     const { color, fuelType, pictureUrl, manufacturerName, mileage, modelName} = carDetail;
 
     useEffect(() => {
@@ -24,11 +22,11 @@ function Car({match} : RouteComponentProps<Params>) {
                 console.log(res);
                 setCarDetail(res.car)
             })
-            .catch(err => console.log(err));
+            .catch(err => history.push("/404"));
+        } else {
+            history.push("/404");
         }
     }, []);
-
- 
 
     return (
         carDetail.manufacturerName ?
@@ -40,7 +38,6 @@ function Car({match} : RouteComponentProps<Params>) {
             <div className="car-body wrapper">
                 <Row>
                     <Col md={7}> 
-                        {/* {JSON.stringify(carDetail)} */}
                         <div className="car-detail-left d-flex">
                             <div className="car-body py-0">
                                 <h2 className="mb-3">{manufacturerName+ " " +modelName}</h2>

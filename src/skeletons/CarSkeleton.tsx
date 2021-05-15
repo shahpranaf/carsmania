@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 
 function CarSkeleton() {
     return (
-        <Card className="d-flex flex-row pad-2 border">
+        <Card data-testid="CarSkeleton" className="d-flex flex-row pad-2 border">
             <div className="car-img mr-10">
                 <Skeleton width="80px" height="80px"/>
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
 import { Col, Row} from 'react-bootstrap'
-import Filter from '../components/Filter';
+import Filter from '../components/Filter/Filter';
 import CardItem from '../components/CardItem';
 import http from "../utils/http";
 import { CarType } from '../types/Car';
@@ -9,12 +9,19 @@ import useQuery from '../hooks/useQuery';
 import CarSkeleton from '../skeletons/CarSkeleton';
 import PaginationComponent from '../components/Pagination/PaginationComponent';
 
+export type CarsState = {
+    cars: [CarType] | [],
+    totalPageCount: number,
+    totalCarsCount: number,
+    isLoading: 'loading' | 'loaded'
+}
+
 function CarsPage() {  
-    const [loading, setLoading] = useState(false);  
-    const [carsList, setCarsList] = useState({
+    const [carsState, setCarsState] = useState<CarsState>({
         cars: [],
         totalPageCount: 0,
-        totalCarsCount: 0
+        totalCarsCount: 0,
+        isLoading: 'loading'
     });
     let history = useHistory();
 
@@ -24,27 +31,32 @@ function CarsPage() {
         currPage: 1
     });
     
-    useEffect(() => {        
-        let url = '/cars?';
-        url += (filter.filteredColor !== "") ? `color=${filter.filteredColor}&`: "";
-        url += (filter.filteredManufact  !== "") ? `manufacturer=${filter.filteredManufact}&`: "";
-        url += filter.currPage ? `page=${filter.currPage}` : "";
+    useEffect(() => {
 
-        setLoading(true);
-        http.get(url)
-        .then(res => res.data)
-        .then(res => {
-            console.log(res);            
-            setCarsList({
-                cars: res.cars,
-                totalPageCount: res.totalPageCount,
-                totalCarsCount: res.totalCarsCount
+        const fetchCars = () => {
+            let url = '/cars?';
+            url += (filter.filteredColor !== "") ? `color=${filter.filteredColor}&`: "";
+            url += (filter.filteredManufact  !== "") ? `manufacturer=${filter.filteredManufact}&`: "";
+            url += filter.currPage ? `page=${filter.currPage}` : "";
+
+            setCarsState({...carsState, isLoading: 'loading'});
+            
+            http.get(url)
+            .then(res => res.data)
+            .then(res => {
+                console.log(res);            
+                setCarsState({
+                    cars: res.cars,
+                    totalPageCount: res.totalPageCount,
+                    totalCarsCount: res.totalCarsCount,
+                    isLoading: 'loaded'
+                })
             })
-            setLoading(false);
-        })
-        .catch(err => console.log(err));
+            .catch(err => setCarsState({...carsState, isLoading: 'loaded'}));
 
-        handleUrl();
+            handleUrl();
+        }
+        fetchCars();
 
     }, [filter])
 
@@ -86,16 +98,16 @@ function CarsPage() {
             </Col>
             <Col md={9}>        
                 <h1>Available Cars</h1>
-                <h2>Showing {10*filter.currPage < carsList.totalCarsCount ? 10*filter.currPage : carsList.totalCarsCount } of {carsList.totalCarsCount} results</h2>
+                <h2>Showing {10*filter.currPage < carsState.totalCarsCount ? 10*filter.currPage : carsState.totalCarsCount } of {carsState.totalCarsCount} results</h2>
                 {
-                   loading ? 
+                   carsState.isLoading === 'loading' ? 
                         Array(10).fill(undefined).map((a, i) => <CarSkeleton key={i} />)
-                        : carsList.cars.map((car: CarType) => <CardItem key={car.stockNumber} car={car}/>)
+                        : carsState.cars.map((car: CarType) => <CardItem key={car.stockNumber} car={car}/>)
                 }
 
                 <PaginationComponent 
                     currPage={filter.currPage}
-                    totalPageCount={carsList.totalPageCount}
+                    totalPageCount={carsState.totalPageCount}
                     handlePagination={handlePagination}
                 />
             </Col>
