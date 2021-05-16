@@ -15,7 +15,7 @@ function CardItem(props: Props) {
     return (
         <Card className="d-flex flex-row pad-2 border">
             <div className="car-img mr-10">
-                <Image width="100px" height="100px" thumbnail src={pictureUrl} />
+                <Image width="100px" height="100px" alt="Car Image" thumbnail src={pictureUrl} />
             </div>
             <Card.Body className="car-body py-0">
             <Card.Title className="mb-1">{manufacturerName+ " " +modelName}</Card.Title>

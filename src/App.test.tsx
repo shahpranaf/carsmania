@@ -19,7 +19,7 @@ reactRouterDom.BrowserRouter = ({children}) => <div>{children}</div>
 //   }),
 // }));
 
-fdescribe("App", () => {
+describe("App", () => {
   test("Renders CarsPage with Header and footer for path '/cars'", () => {
       const { getByText } = render(
         <MemoryRouter initialEntries={["/cars"]}>
@@ -29,6 +29,7 @@ fdescribe("App", () => {
       expect(getByText(/Purchase/)).toBeInTheDocument()
       expect(getByText(/PANNA Group 2018/)).toBeInTheDocument()
       expect(getByText(/Available Cars/)).toBeInTheDocument();
+      jest.clearAllMocks();
   })
 
   test("Renders CarPage with Header and footer for path '/car/123'", () => {
@@ -40,5 +41,6 @@ fdescribe("App", () => {
     expect(getByText(/Purchase/)).toBeInTheDocument();
     expect(getByText(/PANNA Group 2018/)).toBeInTheDocument();
     expect(getByText(/Car 123/)).toBeInTheDocument();
+    jest.clearAllMocks();
   })
 })

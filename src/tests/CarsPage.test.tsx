@@ -66,6 +66,7 @@ describe('renders cars List page correctly', () => {
     mockGet(getMockedCarList(1));
     render(<BrowserRouter><CarsPage /></BrowserRouter>);
     await waitFor(() => expect(screen.getByText(/Fiat1/)).toBeInTheDocument());
+    jest.clearAllMocks();
   });
 
   

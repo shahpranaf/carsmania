@@ -10,11 +10,11 @@ function Car() {
     const history = useHistory();
     const params = useParams();
     const [carDetail, setCarDetail] = useState<CarType>({});
-    console.log(Number(params['stockNumber']) || '0')
-    const stockNumber = Number(params['stockNumber']);
+    const stockNumber = params['stockNumber'] && !isNaN(params['stockNumber']) ? Number(params['stockNumber']) : 0;
     const { color, fuelType, pictureUrl, manufacturerName, mileage, modelName} = carDetail;
 
     useEffect(() => {
+        console.log(stockNumber)
         if(stockNumber) {
             http.get(`/cars/${stockNumber}`)
             .then(res => res.data)
@@ -29,7 +29,7 @@ function Car() {
     }, []);
 
     return (
-        carDetail.manufacturerName ?
+        carDetail.stockNumber ?
             <Container className="car-detail">
            
             <div className="car-img text-center mb-5">

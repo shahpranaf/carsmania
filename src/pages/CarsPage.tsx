@@ -28,7 +28,7 @@ function CarsPage() {
     const [filter, setFilter] = useState({
         filteredColor : useQuery('color') || "",
         filteredManufact : useQuery('manufacturer') || "",
-        currPage: 1
+        currPage: Number(useQuery('page')) || 1
     });
     
     useEffect(() => {
@@ -67,7 +67,8 @@ function CarsPage() {
         setFilter({
             ...filter,
             'filteredColor' : filteredColor,
-            'filteredManufact' : filteredManufact
+            'filteredManufact' : filteredManufact,
+            'currPage': 1
         });
 
         if(filteredColor || filteredManufact) {
