@@ -1,13 +1,13 @@
 import React from "react";
-import './pagination.scss';
+import "./pagination.scss";
 
 import { Pagination } from "react-bootstrap";
 
 type Props = {
-    handlePagination: Function,
-    currPage: number,
-    totalPageCount: number
-}
+	handlePagination: Function;
+	currPage: number;
+	totalPageCount: number;
+};
 
 function PaginationComponent(props: Props) {
 	return (

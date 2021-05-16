@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import "./App.scss";
 
 import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
