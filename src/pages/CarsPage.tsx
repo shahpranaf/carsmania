@@ -27,7 +27,7 @@ function CarsPage() {
 		status: "loading",
 		error: null,
 	});
-	let history = useHistory();
+	const history = useHistory();
 
 	const [filter, setFilter] = useState<FilterType>({
 		filteredColor: useQuery("color") || "",

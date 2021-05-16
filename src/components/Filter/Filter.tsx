@@ -41,16 +41,15 @@ function Filter(props: Props) {
 			.catch((err) => console.log(err));
 	}, []);
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setFilter({
 			...filter,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value
 		});
 	};
 
-	const handleSubmit = (e, color, manufacturer) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement>, color: string, manufacturer: string) => {
 		e.preventDefault();
-		console.log(color, manufacturer)
 		props.handleFilter(color, manufacturer);
 	};
 

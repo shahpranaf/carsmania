@@ -23,7 +23,7 @@ function Car() {
 		} else {
 			history.push("/404");
 		}
-	}, [stockNumber]);
+	}, [stockNumber, history]);
 
 	return carDetail.stockNumber ? (
 		<Container className="car-detail">
