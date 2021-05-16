@@ -1,14 +1,4 @@
 @import "./variables";
+@import "./fonts";
 @import "~bootstrap/scss/bootstrap";
-
-body {
-    font-family: $roboto !important;
-}
-
-@import "./404";
-
-.wrapper {
-    width: $wrapper-width;
-    display: flex;
-    margin: 0 auto;
-}
+@import "./common";

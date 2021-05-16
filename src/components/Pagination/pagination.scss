@@ -7,4 +7,8 @@
     .page-link {
         border: none;
     }
+    .page-link:hover, .page-link:focus {
+        background: none;
+        box-shadow: none;
+    }
 }

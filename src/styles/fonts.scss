@@ -7,3 +7,20 @@
     font-family: 'RobotoBold';
     src: url('../fonts/Roboto-Bold.ttf') format('truetype');
 }
+
+.text-12 {
+    font-size: $font-12;
+}
+.text-14 {
+    font-size: $font-14;
+}
+.text-18 {
+    font-size: $font-18;
+}
+.text-32 {
+    font-size: $font-32;
+}
+.text-bold {
+    font-family: $roboto-bold;
+    font-weight: bold;
+}

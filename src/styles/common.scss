@@ -1,0 +1,36 @@
+
+body {
+    font-family: $roboto;
+    color: $darkGrey;
+}
+
+.wrapper {
+    width: $wrapper-width;
+    display: flex;
+    margin: 0 auto;
+    padding: $space-24;
+}
+
+.btn, .btn-primary, .btn-primary:disabled {
+    width: $btn-width;
+    height: $btn-height;
+    color: $white;
+    font-size: $font-14;
+    border: 0;
+    box-shadow: none;
+    border-radius: 0;
+    &:hover {
+        color: $white;
+        box-shadow: none;
+    }
+    &:focus {
+        box-shadow: none;
+        color: $white;
+    }
+}
+
+a {
+    text-decoration: none;
+    font-size: $font-14;
+    font-family: $roboto;
+}

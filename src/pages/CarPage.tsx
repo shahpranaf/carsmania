@@ -35,9 +35,9 @@ function Car() {
 					<Col md={7}>
 						<div className="car-detail-left d-flex">
 							<div className="car-body py-0">
-								<h2 className="mb-3">{manufacturerName + " " + modelName}</h2>
-								<p className="mb-3">{`Stock #${stockNumber} - ${mileage?.number} ${mileage?.unit} - ${fuelType} - ${color}`}</p>
-								<p>
+								<h2 className="mb-3  text-bold text-32">{manufacturerName + " " + modelName}</h2>
+								<p className="mb-3  text-18">{`Stock #${stockNumber} - ${mileage?.number} ${mileage?.unit} - ${fuelType} - ${color}`}</p>
+								<p className="text-14">
 									{`This car is currently available and can be delivered 
                                     as soon as tommorow morning. Please be aware that delivery times shown 
                                     in this page are not definitive and may change due to bad weather 
@@ -48,7 +48,7 @@ function Car() {
 					</Col>
 					<Col md={5}>
 						<div className="car-detail-right pad-3 border">
-							<p>{`If you like this car, click the button and save it in your collection of favourite items.`}</p>
+							<p className="text-14">{`If you like this car, click the button and save it in your collection of favourite items.`}</p>
 							<FavouriteButton stockNumber={stockNumber} />
 						</div>
 					</Col>

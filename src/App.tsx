@@ -13,7 +13,7 @@ function App() {
 		<Router>
 			<Container fluid className="px-0">
 				<Header />
-				<div className="pad-3">
+				<div className="pad-3 main-body">
 					<Switch>
 						<Route exact path="/" render={() => <Redirect to="/cars" />} />
 						<Route exact path="/cars" component={CarsPage} />

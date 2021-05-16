@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Col, Row } from "react-bootstrap";
 import Filter from "../components/Filter/Filter";
-import CardItem from "../components/CardItem";
+import CardItem from "../components/CardItem/CardItem";
 import { CarType } from "../types/Car";
 import { FilterType } from "../types/Filter";
 import useQuery from "../hooks/useQuery";
 import CarSkeleton from "../skeletons/CarSkeleton";
 import PaginationComponent from "../components/Pagination/PaginationComponent";
 import { fetchCars } from "../apis/Cars";
+import "../styles/CarsPage.scss";
 
 export type CarsState = {
 	cars: [CarType] | [];
@@ -89,8 +90,8 @@ function CarsPage() {
 				<Filter selectedFilter={filter} handleFilter={handleFilter} />
 			</Col>
 			<Col md={9}>
-				<h1>Available Cars</h1>
-				<h2>
+				<h1 className="main-title">Available Cars</h1>
+				<h2 className="main-sub-title">
 					Showing{" "}
 					{10 * filter.currPage < carsState.totalCarsCount ? 10 * filter.currPage : carsState.totalCarsCount}{" "}
 					of {carsState.totalCarsCount} results

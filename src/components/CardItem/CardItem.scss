@@ -1,0 +1,13 @@
+@import '../../styles/variables.scss';
+
+.car-title {
+    font-size: $font-18;
+    font-family: $roboto-bold;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.car-sub-title {
+    font-size: $font-14;
+    font-family: $roboto;
+}

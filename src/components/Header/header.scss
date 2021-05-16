@@ -1,11 +1,13 @@
 @import '../../styles/variables';
 
 .logo {
-    max-width: 100%;
+    max-width: 85%;
 }
-.nav-link {
+.navbar-light .navbar-nav .nav-link {
     margin: 0 15px;
+    color: $darkGrey;
 }
 .navbar {
     border-bottom: 1px solid $border-color;
+    height: 80px;
 }

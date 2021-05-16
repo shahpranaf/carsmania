@@ -58,7 +58,7 @@ function Filter(props: Props) {
 		<div className="filter-container">
 			<Form onSubmit={(e) => handleSubmit(e, filter.color, filter.manufacturer)}>
 				<Form.Group controlId="color">
-					<Form.Label>Color</Form.Label>
+					<Form.Label className="text-14">Color</Form.Label>
 					<Form.Control
 						as="select"
 						name="color"
@@ -79,7 +79,7 @@ function Filter(props: Props) {
 				</Form.Group>
 
 				<Form.Group controlId="manufacturer">
-					<Form.Label>Manufacturer</Form.Label>
+					<Form.Label className="text-14">Manufacturer</Form.Label>
 					<Form.Control
 						as="select"
 						name="manufacturer"
