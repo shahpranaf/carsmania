@@ -2,7 +2,7 @@ import http from "../utils/http";
 import { CarType } from "../types/Car";
 
 export function mockGet(returnValue) {
-	jest.spyOn(http, "get").mockImplementation((url) => {
+	return jest.spyOn(http, "get").mockImplementation((url) => {
 		return Promise.resolve(returnValue);
 	});
 }

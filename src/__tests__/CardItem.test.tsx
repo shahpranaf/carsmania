@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import CardItem from "../components/CardItem";
+import CardItem from "../components/CardItem/CardItem";
 import { CarType } from "../types/Car";
 
 describe("renders CardItem component correctly", () => {

@@ -28,7 +28,7 @@ describe("renders car Detail page correctly", () => {
 		jest.spyOn(ReactRouter, "useParams").mockReturnValue({ stockNumber: "abc" });
 
 		const history = createMemoryHistory();
-		const pushSpy = jest.spyOn(history, "push"); // or 'replace', 'goBack', etc.
+		const pushSpy = jest.spyOn(history, "push");
 		render(
 			<Router history={history}>
 				<CarPage />
