@@ -36,6 +36,28 @@ function CarsPage() {
 	});
 
 	useEffect(() => {
+
+		const getCarsList = () => {
+			setCarsState((currentState) => ({ ...currentState, status: "loading" }));
+
+			fetchCars(filter)
+				.then((res) => {
+					setCarsState((currentState) => ({
+						...currentState,
+						cars: res.cars,
+						totalPageCount: res.totalPageCount,
+						totalCarsCount: res.totalCarsCount,
+						status: "loaded",
+						error: null,
+					}));
+				})
+				.catch((err) => setCarsState((currentState) => ({ ...currentState, status: "loaded", error: err })));
+
+		};
+		getCarsList();
+	}, [filter]);
+
+	useEffect(() => {
 		const handleUrl = () => {
 			let params = "";
 			params += filter.filteredColor !== "" ? `color=${filter.filteredColor}&` : "";
@@ -46,26 +68,9 @@ function CarsPage() {
 				search: "?" + params,
 			});
 		};
+		handleUrl();
 
-		const getCarsList = () => {
-			setCarsState({ ...carsState, status: "loading" });
-
-			fetchCars(filter)
-				.then((res) => {
-					setCarsState({
-						cars: res.cars,
-						totalPageCount: res.totalPageCount,
-						totalCarsCount: res.totalCarsCount,
-						status: "loaded",
-						error: null,
-					});
-				})
-				.catch((err) => setCarsState({ ...carsState, status: "loaded", error: err }));
-
-			handleUrl();
-		};
-		getCarsList();
-	}, [filter]);
+	}, [filter, history])
 
 	const handleFilter = (filteredColor: string, filteredManufact: string) => {
 		setFilter({

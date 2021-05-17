@@ -3,15 +3,12 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import CarsPage from '../pages/CarsPage';
 import { BrowserRouter } from 'react-router-dom';
 import { getMockedCarList, mockGet } from '../__mocks__/mock';
-import http from '../utils/http';
 import * as useQuery from '../hooks/useQuery';
 
 /* Mocks - to be moved to other file */
 jest.mock("../components/Filter/Filter", () => {
   return () => null
 });
-
-
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -46,9 +43,9 @@ describe('renders cars List page correctly', () => {
   });
 
   test('loading when cars are not fetched', async() => {
-    mockGet(0);
+    mockGet(getMockedCarList(1));
 
-    const { getAllByTestId } = render(<CarsPage />);
+    const { getAllByTestId } = render(<BrowserRouter><CarsPage /></BrowserRouter>);
     
     const CarSkeleton = await waitFor(() => getAllByTestId('CarSkeleton'));
     
@@ -92,7 +89,7 @@ describe('renders cars List page correctly', () => {
     });
 
     const httpMockGet = mockGet(getMockedCarList(5));
-    const { getByText } = render(<BrowserRouter><CarsPage /></BrowserRouter>);
+    render(<BrowserRouter><CarsPage /></BrowserRouter>);
     
     await waitFor(() => expect(httpMockGet).toHaveBeenCalledWith('/cars?color=red&manufacturer=Audi&page=1'));
     
